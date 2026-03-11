@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Appointment Booking System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">&#128197;</span>
+                <h1>AppointEase</h1>
+            </div>
+            <p class="tagline">Book Your Appointment Online - Quick, Easy & Convenient</p>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="showSection('booking')">
+            &#128221; Book Appointment
+        </button>
+        <button class="tab-btn" onclick="showSection('slots')">
+            &#128336; View Time Slots
+        </button>
+        <button class="tab-btn" onclick="showSection('myappointments')">
+            &#128203; My Appointments
+        </button>
+    </nav>
+
+    <main class="container">
+
+        <!-- SECTION 1: Booking Form -->
+        <section id="booking-section" class="section active">
+            <div class="section-header">
+                <h2>Book an Appointment</h2>
+                <p>Fill in your details and select a preferred date and time</p>
+            </div>
+
+            <form id="booking-form" class="booking-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="purpose">Purpose of Visit</label>
+                        <select id="purpose" name="purpose">
+                            <option value="">Select purpose</option>
+                            <option value="Consultation">Consultation</option>
+                            <option value="Follow-up">Follow-up</option>
+                            <option value="New Registration">New Registration</option>
+                            <option value="Document Verification">Document Verification</option>
+                            <option value="General Inquiry">General Inquiry</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="booking-date">Select Date *</label>
+                        <input type="date" id="booking-date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Time Slot *</label>
+                        <div id="time-slots-container" class="time-slots-grid">
+                            <p class="placeholder-text">Please select a date first to view available slots</p>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="selected-time" name="time">
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="book-btn">
+                        &#10003; Confirm Booking
+                    </button>
+                    <button type="reset" class="btn btn-secondary" onclick="resetForm()">
+                        &#8634; Reset Form
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- SECTION 2: View Available Slots -->
+        <section id="slots-section" class="section">
+            <div class="section-header">
+                <h2>Available Time Slots</h2>
+                <p>Browse available appointment slots by date</p>
+            </div>
+
+            <div class="date-selector">
+                <label for="view-date">Select Date:</label>
+                <input type="date" id="view-date">
+                <button class="btn btn-primary" onclick="loadAllSlots()">
+                    &#128269; View Slots
+                </button>
+            </div>
+
+            <div id="all-slots-container" class="slots-overview">
+                <p class="placeholder-text">Select a date and click "View Slots" to see availability</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: My Appointments -->
+        <section id="myappointments-section" class="section">
+            <div class="section-header">
+                <h2>My Appointments</h2>
+                <p>View and manage your booked appointments</p>
+            </div>
+
+            <div class="search-bar">
+                <label for="search-email">Enter your Email:</label>
+                <input type="email" id="search-email" placeholder="Enter the email used for booking">
+                <button class="btn btn-primary" onclick="searchAppointments()">
+                    &#128269; Search
+                </button>
+            </div>
+
+            <div id="appointments-list" class="appointments-container">
+                <p class="placeholder-text">Enter your email and click "Search" to view your appointments</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="success-icon">&#10004;</span>
+                <h2>Booking Confirmed!</h2>
+            </div>
+            <div id="modal-details" class="modal-details">
+            </div>
+            <button class="btn btn-primary" onclick="closeModal()">OK, Got It!</button>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 AppointEase - Online Appointment Booking System | College Project</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
